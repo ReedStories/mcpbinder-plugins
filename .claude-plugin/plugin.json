@@ -1,0 +1,25 @@
+{
+  "name": "mcpbinder",
+  "displayName": "MCPBinder",
+  "version": "1.2.0",
+  "description": "Read project context and manage tasks in MCPBinder, with access you control.",
+  "author": {
+    "name": "Reed Stories, LLC",
+    "email": "support@mcpbinder.com",
+    "url": "https://www.mcpbinder.com"
+  },
+  "homepage": "https://www.mcpbinder.com",
+  "repository": "https://github.com/ReedStories/mcpbinder-plugins",
+  "documentationUrl": "https://github.com/ReedStories/mcpbinder-plugins#readme",
+  "keywords": [
+    "projects",
+    "tasks",
+    "status updates",
+    "decisions",
+    "productivity"
+  ],
+  "icon": "./assets/icon.png",
+  "supportUrl": "https://www.mcpbinder.com/contact",
+  "privacyPolicyUrl": "https://www.mcpbinder.com/privacy",
+  "termsOfServiceUrl": "https://www.mcpbinder.com/terms"
+}
