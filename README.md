@@ -2,7 +2,7 @@
 
 ![MCPBinder](assets/icon.png)
 
-Bring project context and next steps into Claude and Cursor. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history.
+Bring project context and next steps into Claude, Cursor, and Antigravity. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history.
 
 ## Connect
 
@@ -19,6 +19,12 @@ Cursor loads the root `plugin.json` and `mcp.json` as an [Agent Plugin](https://
 For a local Cursor preview, clone this repository into `~/.cursor/plugins/local/mcpbinder`. Restart Cursor or run **Developer: Reload Window**, then open **Customize** and confirm all six skills and the MCPBinder server appear. Local plugin imports must be allowed by your team. Authenticate the server through OAuth and select only the workspace, projects, and permissions you intend to share. [Cursor's installation and local-testing instructions](https://prod.cursor.com/docs/plugins#test-plugins-locally) describe the supported controls.
 
 Adding the remote server by itself does not install the skills. Marketplace installation is available after Cursor approves the listing. Before submission, test skill activation, reads and persisted task changes in a synthetic project, permission denial, and connection revocation in Cursor.
+
+### Antigravity
+
+Use the self-contained package in [`antigravity/mcpbinder`](antigravity/mcpbinder), which contains Antigravity's `plugin.json` and `mcp_config.json`, the same six skills, icon, and license. Copy that directory into `.agents/plugins/` inside a separate test workspace, or use Antigravity CLI's `agy plugin install` with its absolute path. Authenticate MCPBinder through OAuth in Customizations. See the [package instructions](antigravity/mcpbinder/README.md) and [acceptance checks](antigravity/acceptance.md) before claiming native compatibility.
+
+Maintainers can refresh the package with `python3 scripts/package-antigravity.py`, verify it with `--check`, and export an inspected ZIP with `--archive /absolute/path/to/mcpbinder-antigravity.zip`. The script derives the Antigravity connection and metadata from the shared source and copies the skills without changes. Antigravity's manifest has a different schema from the root Agent Plugins manifest; keep the host package in its own directory. [Google's plugin guide](https://antigravity.google/docs/plugins/) and [Marketplace interest route](https://antigravity.google/docs/marketplace/#next-steps) describe local installation and public listing. Local installation and an interest-form submission do not establish Marketplace approval.
 
 ## MCP Registry publication
 

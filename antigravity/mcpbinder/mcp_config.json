@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "mcpbinder": {
+      "serverUrl": "https://www.mcpbinder.com/api/mcp"
+    }
+  }
+}
