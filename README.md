@@ -20,6 +20,12 @@ For a local Cursor preview, clone this repository into `~/.cursor/plugins/local/
 
 Adding the remote server by itself does not install the skills. Marketplace installation is available after Cursor approves the listing. Before submission, test skill activation, reads and persisted task changes in a synthetic project, permission denial, and connection revocation in Cursor.
 
+## MCP Registry publication
+
+The root `server.json` describes the hosted MCPBinder server as `io.github.ReedStories/mcpbinder`. This Registry identifier is separate from the plugin repository name and each host's marketplace review.
+
+Maintainers can run **Actions → Publish MCPBinder to the MCP Registry → Run workflow** from `main`. The workflow uses GitHub Actions identity to authenticate, publishes the reviewed metadata, and verifies the public Registry record. It runs only when manually requested and needs no stored access token. For future releases, review `server.json` and update its version before running the workflow.
+
 ## Workflows
 
 - **Get started:** understand the workspace, reachable projects, and approved capabilities.

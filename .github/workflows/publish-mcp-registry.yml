@@ -1,0 +1,61 @@
+name: Publish MCPBinder to the MCP Registry
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: publish-mcp-registry
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'ReedStories/mcpbinder-plugins' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out the plugin repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Download the official publisher
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 \
+            --output mcp-publisher.tar.gz \
+            https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz
+          printf '%s  %s\n' 'a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc' 'mcp-publisher.tar.gz' | sha256sum --check
+          tar -xzf mcp-publisher.tar.gz mcp-publisher
+
+      - name: Authenticate with GitHub Actions identity
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish the hosted MCPBinder server
+        run: ./mcp-publisher publish server.json
+
+      - name: Verify the public Registry entry
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.parse
+          import urllib.request
+
+          with open('server.json') as source:
+              expected = json.load(source)
+          query = urllib.parse.urlencode({'search': expected['name']})
+          url = 'https://registry.modelcontextprotocol.io/v0.1/servers?' + query
+          with urllib.request.urlopen(url, timeout=30) as response:
+              records = json.load(response)['servers']
+          matches = [record for record in records
+                     if record['server']['name'] == expected['name']
+                     and record['server']['version'] == expected['version']]
+          assert len(matches) == 1, 'Expected published Registry entry was not found'
+          actual = matches[0]['server']
+          for field in ['name', 'title', 'description', 'version', 'websiteUrl', 'remotes']:
+              assert actual.get(field) == expected[field], f'Registry field mismatch: {field}'
+          print(f"Verified {actual['name']} version {actual['version']}")
+          PY
