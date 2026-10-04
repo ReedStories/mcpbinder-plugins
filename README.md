@@ -2,7 +2,7 @@
 
 ![MCPBinder](assets/icon.png)
 
-Bring project context and next steps into Claude, Cursor, and Antigravity. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history.
+Bring project context and next steps into your AI assistant. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history. This repository includes configurations for Claude, Cursor, Kiro, Antigravity, Gemini CLI, and Grok Build; each host's installation, review, and runtime support are separate.
 
 ## Connect
 
@@ -25,6 +25,20 @@ Adding the remote server by itself does not install the skills. Marketplace inst
 Use the self-contained package in [`antigravity/mcpbinder`](antigravity/mcpbinder), which contains Antigravity's `plugin.json` and `mcp_config.json`, the same six skills, icon, and license. Copy that directory into `.agents/plugins/` inside a separate test workspace, or use Antigravity CLI's `agy plugin install` with its absolute path. Authenticate MCPBinder through OAuth in Customizations. See the [package instructions](antigravity/mcpbinder/README.md) and [acceptance checks](antigravity/acceptance.md) before claiming native compatibility.
 
 Maintainers can refresh the package with `python3 scripts/package-antigravity.py`, verify it with `--check`, and export an inspected ZIP with `--archive /absolute/path/to/mcpbinder-antigravity.zip`. The script derives the Antigravity connection and metadata from the shared source and copies the skills without changes. Antigravity's manifest has a different schema from the root Agent Plugins manifest; keep the host package in its own directory. [Google's plugin guide](https://antigravity.google/docs/plugins/) and [Marketplace interest route](https://antigravity.google/docs/marketplace/#next-steps) describe local installation and public listing. Local installation and an interest-form submission do not establish Marketplace approval.
+
+### Gemini CLI
+
+The root `gemini-extension.json` connects the same hosted server using Streamable HTTP and dynamic OAuth discovery. `GEMINI.md` supplies host context, and `skills/` contains the six shared workflows. Install from this repository with `gemini extensions install https://github.com/ReedStories/mcpbinder-plugins`, restart Gemini CLI, and authenticate through `/mcp auth mcpbinder`. [Google's extension reference](https://geminicli.com/docs/extensions/reference/) describes the format and controls.
+
+The manifest excludes the unverified native task forms; ordinary authorized task creation and editing use `item_create` and `item_update`. No API key, client secret, stored token, authorization header, or trust override is included. Gemini CLI runtime testing has been deferred; this listing preparation does not establish OAuth, refresh, skill activation, persisted writes, interactive views, or revocation in Gemini itself.
+
+The [Gemini gallery](https://geminicli.com/docs/extensions/releasing/#list-your-extension-in-the-gallery) discovers public repositories with a root manifest and the `gemini-cli-extension` GitHub topic. Indexing and validation happen externally. Free and Google One users were [transitioned to Antigravity CLI](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/); Gemini CLI remains a separate route for enterprise licenses and paid API keys.
+
+### Grok Build
+
+Grok Build [reads Claude Code plugin configurations](https://docs.x.ai/build/features/skills-plugins-marketplaces), including this repository's `.claude-plugin/plugin.json`, `.mcp.json`, and shared `skills/`. The only remote MCP endpoint declared here is https://www.mcpbinder.com/api/mcp. Users authenticate through OAuth and choose their MCPBinder workspace, projects, permissions, and expiry; no account credential is bundled. There are no plugin hooks, local MCP processes, install-time scripts, or automatic permission grants.
+
+The [official Grok catalog](https://github.com/xai-org/plugin-marketplace/blob/main/CONTRIBUTING.md) accepts pull requests pointing to an exact public source commit. A catalog submission is a request for review. Native Grok Build testing is deferred, and no native acceptance pass or live catalog listing is claimed.
 
 ## MCP Registry publication
 

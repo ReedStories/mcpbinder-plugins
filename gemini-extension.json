@@ -1,0 +1,19 @@
+{
+  "name": "mcpbinder",
+  "version": "1.2.0",
+  "description": "Read project context and manage tasks in MCPBinder, with access you control.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "mcpbinder": {
+      "httpUrl": "https://www.mcpbinder.com/api/mcp",
+      "authProviderType": "dynamic_discovery",
+      "oauth": {
+        "enabled": true
+      },
+      "excludeTools": [
+        "create_task_form",
+        "edit_task_form"
+      ]
+    }
+  }
+}
