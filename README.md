@@ -1,5 +1,7 @@
 # MCPBinder
 
+[![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/reedstories/mcpbinder-plugins)
+
 ![MCPBinder](assets/icon.png)
 
 Bring project context and next steps into your AI assistant. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history. This repository includes configurations for Claude, Cursor, Kiro, Antigravity, Gemini CLI, and Grok Build; each host's installation, review, and runtime support are separate.
