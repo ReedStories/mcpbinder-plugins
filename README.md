@@ -2,13 +2,23 @@
 
 ![MCPBinder](assets/icon.png)
 
-Bring project context and next steps into Claude. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history.
+Bring project context and next steps into Claude and Cursor. MCPBinder lets you read project goals, review tasks and activity, plan work, and record decisions in a shared workspace. Task changes and comments are attributed to the agent connection and appear in the workspace's history.
 
 ## Connect
 
 This plugin connects to the hosted MCPBinder server at https://www.mcpbinder.com/api/mcp using OAuth. You need an MCPBinder account and access to a workspace. During authorization, choose the workspace, projects, permissions, and expiry. You can reduce or revoke access in MCPBinder's Agent access settings.
 
+### Claude
+
 For a local Claude Code preview, start Claude with `claude --plugin-dir ./mcpbinder`. Open `/mcp` and authenticate the MCPBinder server. On claude.ai, add the same server URL as a custom connector in Settings → Connectors. Adding the connector alone does not install these skills.
+
+### Cursor
+
+Cursor loads the root `plugin.json` and `mcp.json` as an [Agent Plugin](https://prod.cursor.com/docs/reference/plugins#supported-plugin-formats). The Claude configuration stays in `.claude-plugin/plugin.json` and `.mcp.json`; both hosts share the same six skills and icon.
+
+For a local Cursor preview, clone this repository into `~/.cursor/plugins/local/mcpbinder`. Restart Cursor or run **Developer: Reload Window**, then open **Customize** and confirm all six skills and the MCPBinder server appear. Local plugin imports must be allowed by your team. Authenticate the server through OAuth and select only the workspace, projects, and permissions you intend to share. [Cursor's installation and local-testing instructions](https://prod.cursor.com/docs/plugins#test-plugins-locally) describe the supported controls.
+
+Adding the remote server by itself does not install the skills. Marketplace installation is available after Cursor approves the listing. Before submission, test skill activation, reads and persisted task changes in a synthetic project, permission denial, and connection revocation in Cursor.
 
 ## Workflows
 
